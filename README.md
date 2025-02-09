@@ -40,6 +40,11 @@ npm run build
 
 ## Version History
 
+- v1.0.1 - Fix deployment issues
+  - Remove unused code
+  - Fix TypeScript errors
+  - Optimize for production build
+
 - v1.0.0 - Initial release
   - Basic gameplay mechanics
   - Score system
