@@ -1,0 +1,80 @@
+game:
+  grid:
+    rows: 15
+    columns: 15
+  falling_blocks:
+    description: "数字が書かれた1マスサイズのブロックが上部から落下する"
+    generation:
+      number_range: "1 〜 現在盤面に存在するブロックの最大値（動的に変化）"
+  user_interaction:
+    block_drop:
+      description: "ユーザーがブロックを落とす列を選択する"
+  Lblock_merging:
+    rule: "同じ数字のブロックが2個以上隣接すると、1つのブロックにまとまり、数字が1増加する"
+    example: "2のブロックが隣接すると、1つの3のブロックに変化する"
+    scoring:
+      formula: "元の数字 × 隣接した（マージされた）ブロックの数"
+      description: "ブロックが隣接して新しいブロックが生まれたときに加点される"
+  game_over:
+    condition: "ブロックが積み上がり、どの列にもブロックを落とせなくなったとき"
+  leaderboard:
+    description: >
+      ゲームオーバー時にユーザーが名前を入力して獲得ポイントを登録し、
+      他のユーザーの獲得ポイントを確認できるページを提供する
+
+tech_stack:
+  frontend:
+    framework: "React"
+    build_tool: "Vite"
+    language: "Typescript"
+  backend:
+    database: "Supabase"
+    deployment: "Vercel"
+
+api:
+  endpoints:
+    - path: "/api/score"
+      method: "POST"
+      description: "ゲームオーバー後にユーザー名とスコアを登録するエンドポイント"
+    - path: "/api/leaderboard"
+      method: "GET"
+      description: "登録されたユーザーのスコアを取得するエンドポイント"
+
+database:
+  tables:
+    scores:
+      description: "ユーザーのスコアを保存するテーブル"
+      columns:
+        - id:
+            type: "UUID or auto-increment integer"
+            description: "一意な識別子"
+        - username:
+            type: "string"
+            description: "ユーザー名"
+        - score:
+            type: "integer"
+            description: "獲得したポイント"
+        - created_at:
+            type: "timestamp"
+            description: "スコアが登録された日時"
+
+ui:
+  screens:
+    - game_screen:
+        description: "15×15のグリッド、落下中のブロック、ユーザー入力のインターフェースを表示"
+    - game_over_modal:
+        description: "ゲームオーバー時にユーザー名入力とスコア登録を促すポップアップ"
+    - leaderboard_page:
+        description: "登録されたスコアを一覧表示し、ランキングを確認できる画面"
+
+non_functional_requirements:
+  responsiveness: "様々な画面サイズ（PC、タブレット、スマートフォン）に対応するレスポンシブデザイン"
+  performance: "スムーズなアニメーションと低いレイテンシでの操作感を実現する"
+  scalability: "多数のユーザーが同時にアクセスしても安定して動作するバックエンド設計"
+  security: "スコア登録時の不正な操作やデータ改ざんを防ぐ仕組みの実装"
+
+notes:
+  - "ブロックのマージロジックは、隣接する全方向（上下左右、場合によっては斜め）のチェックが必要"
+  - "マージによる連鎖反応（チェーンマージ）が発生する可能性を考慮する"
+  - "落下するブロックの数字レンジは、盤面の状態に応じて動的に更新する"
+  - "APIとデータベースの接続にはSupabaseの認証・セキュリティ機能を活用する"
