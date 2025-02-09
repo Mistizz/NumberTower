@@ -38,23 +38,12 @@ const Cell = styled.div<{ isActive: boolean; value: number }>`
   }
 `;
 
-const ColumnHighlight = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
-  transition: transform 0.2s ease;
-`;
-
 interface GameGridProps {
   grid: Grid;
-  currentBlock: Block | null;
   onColumnClick: (column: number) => void;
 }
 
-export const GameGrid: React.FC<GameGridProps> = ({ grid, currentBlock, onColumnClick }) => {
+export const GameGrid: React.FC<GameGridProps> = ({ grid, onColumnClick }) => {
   return (
     <GridContainer>
       {grid.map((row, rowIndex) =>

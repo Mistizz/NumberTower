@@ -57,7 +57,6 @@ export const GamePage = () => {
       <GameContainer>
         <GameGrid
           grid={gameState.grid}
-          currentBlock={gameState.currentBlock}
           onColumnClick={dropBlock}
         />
         <SidePanel>

@@ -10,9 +10,6 @@ const createEmptyGrid = (): Grid => {
 };
 
 export const useGame = () => {
-  // 最後に配置したブロックの位置を追跡
-  const [lastPlacedPosition, setLastPlacedPosition] = useState<{ row: number; col: number } | null>(null);
-
   const [gameState, setGameState] = useState<GameState>({
     grid: createEmptyGrid(),
     score: 0,
