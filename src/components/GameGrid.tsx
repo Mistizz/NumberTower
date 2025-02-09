@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid, Block } from '../types/game';
+import { Grid } from '../types/game';
 
 const GridContainer = styled.div`
   display: grid;
